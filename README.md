@@ -87,6 +87,11 @@ set :assetic_dump_flags,  ''
 fetch(:default_env).merge!(symfony_env: fetch(:symfony_env))
 ```
 
+**Note: When changing a variable that is used as a provider of other variables,
+ you have to overwrite the dependant variables as well. For example if you do `set :app_path,              "symfony/app"`,
+ you'll also have to repeat `set :symfony_console_path, fetch(:app_path) + "/console"` after the `app_path` definition
+ (otherwise `symfony_console_path` is still `"app/console"` instead of `"symfony/app/console"`).
+
 ### Flow
 
 capistrano-symfony hooks into the [flow][1] offered by capistrano. It adds to that flow like so
